@@ -1,0 +1,40 @@
+﻿@page "/chat"
+@using BlazorLiveDemoNet.Shared.DTOs
+<h3>Chat</h3>
+
+<EditForm Model="CurrentMessage" OnSubmit="SendMessage">
+    <div class="form-control">
+        <label>Name</label>
+        <InputText @bind-Value="CurrentMessage.Name"></InputText>
+    </div>
+    <div class="form-control">
+        <label>Message</label>
+        <InputTextArea @bind-Value="CurrentMessage.Message"></InputTextArea>
+    </div>
+    <button class="btn btn-primary mt-3">Send</button>
+</EditForm>
+<div class="row mt-3">
+    <ul class="container" style="list-style-type: none;">
+        <Virtualize Items="Messages.OrderByDescending(m=>m.Timestamp).ToArray()" Context="message">
+            <div class="col"></div>
+            <li class="border border-2 mt-3 border-primary">
+                <div class="card-header">
+                    <h4><span class="oi oi-person"></span> @message.Name</h4>
+                </div>
+                <div class="card-body mt-3">
+                    @message.Message 
+                </div>
+                <div class="card-footer mt-3">
+                    @message.Timestamp.Value.ToLocalTime().ToString("R")
+                </div>
+            </li>
+        
+        </Virtualize>
+    </ul>
+    
+  
+</div>
+
+@code {
+   
+}
